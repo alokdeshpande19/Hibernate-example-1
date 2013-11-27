@@ -9,11 +9,11 @@
     <session-factory>
         
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/hello13</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/hibernatedata</property>
         <property name="connection.username">postgres</property>
         <property name="connection.password">sellerforce</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
     <property name="show_sql">true</property>
         
   
