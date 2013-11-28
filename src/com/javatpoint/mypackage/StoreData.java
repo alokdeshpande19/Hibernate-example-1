@@ -3,50 +3,37 @@ package com.javatpoint.mypackage;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class StoreData {
-	 private static SessionFactory factory; 
+	   static EntityManagerFactory emf = Persistence.createEntityManagerFactory("hsqldb-ds");
 	   public static void main(String[] args) {
-		Configuration cfg = new AnnotationConfiguration();
-		cfg.configure("hibernate.cfg.xml");
-		 factory = cfg.buildSessionFactory();
-		Session session = factory.openSession();
-		Transaction t = session.beginTransaction();
-		UserDbo user = new UserDbo();
-		user.setEmail("madhukar@easility.com");
-		user.setPassword("hibernate");
-		session.persist(user);
-		session.flush();
-		t.commit();
-		session.close();
-		System.out.println("successfully saved");
-		StoreData s=new StoreData();
-		s.listUsers();
-	}
-	   public void listUsers(){
-		      Session session = factory.openSession();
-		      Transaction tx = null;
-		      try{
-		         tx = session.beginTransaction();
-		         List users = session.createQuery("FROM UserDbo").list(); 
-		         for (Iterator iterator = 	 users.iterator(); iterator.hasNext();){
-		            UserDbo user = (UserDbo) iterator.next(); 
-		            System.out.println("emailId: " + user.getEmail()); 
-		            System.out.println("  id: " + user.getId()); 
-		            System.out.println("  password: " + user.getPassword()); 
-		         }
-		         tx.commit();
-		      }catch (HibernateException e) {
-		         if (tx!=null) tx.rollback();
-		         e.printStackTrace(); 
-		      }finally {
-		         session.close(); 
-		      }
+		  //for inserting the data
+		   EntityManager entityManager = emf.createEntityManager();
+		   entityManager.getTransaction().begin();
+		   UserDbo user=new UserDbo();
+		   user.setEmail("madhukar@easility.com");
+		   user.setPassword("easility");
+		   entityManager.persist(user);
+		   UserDbo user1=new UserDbo();
+		   user1.setEmail("madhukarpandey007@gmail.com");
+		   user1.setPassword("easility123");
+		   entityManager.persist(user1);
+		   entityManager.getTransaction().commit();
+		   entityManager.close();
+	     
+		   // for fetching the data 	   
+		   entityManager = emf.createEntityManager();
+		   entityManager.getTransaction().begin();
+		   List<UserDbo> result = entityManager.createQuery( "from UserDbo", UserDbo.class ).getResultList();
+		   for ( UserDbo userDbo : result ) {
+		       System.out.println( "UserId=" + userDbo.getId());
+		       System.out.println( "User EmailId=" + userDbo.getEmail());
+		       System.out.println( "User Password=" + userDbo.getPassword());
 		   }
+		   entityManager.getTransaction().commit();
+		   entityManager.close();
+	   }
 }
