@@ -16,25 +16,10 @@ dependencies {
 	compile fileTree(dir: 'lib', include: '*.jar')
 }
 
+//let's at least copy all jars to a single directory to use in creating an application...
 task syncJars(dependsOn: 'clean',type: Sync) {
     from(configurations.compile) {}
     from(fixedLibDir) {}
     into toStagingLibsDir
 }
 
-task copyMainJar(type: Copy) {
-    from(libsDir) {}
-    into toStagingLibsDir
-}
-
-
-task myZip(type: Tar) {
-    archiveName project.name+'.tar.gz'
-    from(buildDir) {
-        include project.name+'/**'
-    }
-}
-
-copyMainJar.dependsOn('syncJars')
-myZip.dependsOn('copyMainJar')
-assemble.dependsOn('myZip')
