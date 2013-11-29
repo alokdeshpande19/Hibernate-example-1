@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+buildDir = file('output')
+project.ext.fixedLibDir = file('lib')
+project.ext.stagingDir = file('staging')
+project.ext.toStagingDir = file(new File(buildDir, project.name))
+project.ext.toStagingLibsDir = file(new File(toStagingDir, 'lib'))
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+	compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.1.3.Final'
+	compile group: 'org.hsqldb', name: 'hsqldb', version: '2.2.9'
+	compile fileTree(dir: 'lib', include: '*.jar')
+}
+
+task syncJars(dependsOn: 'clean',type: Sync) {
+    from(configurations.compile) {}
+    from(fixedLibDir) {}
+    into toStagingLibsDir
+}
+
+task copyMainJar(type: Copy) {
+    from(libsDir) {}
+    into toStagingLibsDir
+}
+
+
+task myZip(type: Tar) {
+    archiveName project.name+'.tar.gz'
+    from(buildDir) {
+        include project.name+'/**'
+    }
+}
+
+copyMainJar.dependsOn('syncJars')
+myZip.dependsOn('copyMainJar')
+assemble.dependsOn('myZip')
