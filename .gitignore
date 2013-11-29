@@ -10,3 +10,4 @@ tmp/
 /.classpath
 /.metadata
 /data/
+/.gradle/
