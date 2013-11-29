@@ -7,12 +7,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.annotations.FlushModeType;
+
 public class StoreData {
 	   static EntityManagerFactory emf = Persistence.createEntityManagerFactory("hsqldb-ds");
+	   
 	   public static void main(String[] args) {
 		  //for inserting the data
 		   EntityManager entityManager = emf.createEntityManager();
 		   entityManager.getTransaction().begin();
+		   //entityManager.setFlushMode(FlushModeType.MANUAL);
+		   
 		   UserDbo user=new UserDbo();
 		   user.setEmail("madhukar@easility.com");
 		   user.setPassword("easility");
