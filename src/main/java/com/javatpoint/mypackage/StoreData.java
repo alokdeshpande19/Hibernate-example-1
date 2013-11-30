@@ -27,7 +27,6 @@ public class StoreData {
 	    session.setFlushMode(FlushMode.MANUAL);
 	    
 		entityManager.getTransaction().begin();
-		// entityManager.setFlushMode(FlushModeType.MANUAL);
 
 		UserDbo user = new UserDbo();
 		user.setEmail("madhukar@easility.com");
@@ -40,15 +39,14 @@ public class StoreData {
 
 		entityManager.persist(companyDbo);
 		entityManager.persist(user);
-		entityManager.flush();
 
 //		UserDbo user1 = new UserDbo();
 //		user1.setEmail("madhukarpandey007@gmail.com");
 //		user1.setPassword("easility123");
 //		entityManager.persist(user1);
 
-		entityManager.flush();
-		entityManager.flush();
+		//entityManager.flush();
+		//entityManager.flush();
 		
 		entityManager.getTransaction().commit();
 		entityManager.close();
@@ -58,6 +56,7 @@ public class StoreData {
 		entityManager.getTransaction().begin();
 		List<UserDbo> result = entityManager.createQuery("from UserDbo",
 				UserDbo.class).getResultList();
+		System.out.println("size="+result.size());
 		for (UserDbo userDbo : result) {
 			System.out.println("UserId=" + userDbo.getId());
 			System.out.println("User EmailId=" + userDbo.getEmail());
