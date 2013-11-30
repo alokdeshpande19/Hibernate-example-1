@@ -45,8 +45,8 @@ public class StoreData {
 //		user1.setPassword("easility123");
 //		entityManager.persist(user1);
 
-		//entityManager.flush();
-		//entityManager.flush();
+		entityManager.flush();
+		entityManager.flush();
 		
 		entityManager.getTransaction().commit();
 		entityManager.close();

@@ -30,7 +30,7 @@ import org.hibernate.annotations.Index;
 public class UserDbo {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
 
 	@Index(name="entityIndexCol")
