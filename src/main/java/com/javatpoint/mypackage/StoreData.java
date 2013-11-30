@@ -36,13 +36,14 @@ public class StoreData {
 		entityManager.persist(user);
 		entityManager.flush();
 
-		UserDbo user1 = new UserDbo();
-		user1.setEmail("madhukarpandey007@gmail.com");
-		user1.setPassword("easility123");
-		entityManager.persist(user1);
+//		UserDbo user1 = new UserDbo();
+//		user1.setEmail("madhukarpandey007@gmail.com");
+//		user1.setPassword("easility123");
+//		entityManager.persist(user1);
 
 		entityManager.flush();
-
+		entityManager.flush();
+		
 		entityManager.getTransaction().commit();
 		entityManager.close();
 

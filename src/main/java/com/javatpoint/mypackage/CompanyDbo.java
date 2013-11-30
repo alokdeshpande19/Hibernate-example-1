@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class CompanyDbo {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer id;
 
 	@OneToMany(mappedBy="company")
