@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.FlushMode;
+import org.hibernate.Session;
+
 public class StoreData {
 	static EntityManagerFactory emf;
 
@@ -20,6 +23,9 @@ public class StoreData {
 		emf = Persistence.createEntityManagerFactory("hsqldb-ds");
 		// for inserting the data
 		EntityManager entityManager = emf.createEntityManager();
+		Session session = (Session) entityManager.getDelegate();  
+	    session.setFlushMode(FlushMode.MANUAL);
+	    
 		entityManager.getTransaction().begin();
 		// entityManager.setFlushMode(FlushModeType.MANUAL);
 
