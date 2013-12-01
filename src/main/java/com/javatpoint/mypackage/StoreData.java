@@ -1,5 +1,7 @@
 package com.javatpoint.mypackage;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,7 +14,10 @@ import org.hibernate.Session;
 public class StoreData {
 	static EntityManagerFactory emf;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnknownHostException {
+		
+		InetAddress localHost = InetAddress.getLocalHost();
+		
 		try {
 			Class.forName("net.sf.log4jdbc.DriverSpy");
 		} catch (ClassNotFoundException e) {

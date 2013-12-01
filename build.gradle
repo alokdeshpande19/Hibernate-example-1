@@ -26,3 +26,4 @@ task syncJars(dependsOn: 'clean',type: Sync) {
     into toStagingLibsDir
 }
 
+assemble.dependsOn('syncJars')
