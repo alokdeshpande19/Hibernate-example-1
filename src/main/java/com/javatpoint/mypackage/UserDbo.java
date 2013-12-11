@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Query;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Index;
 
@@ -30,7 +31,8 @@ import org.hibernate.annotations.Index;
 public class UserDbo {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name="user_id_gen",sequenceName="user_sequence" ,initialValue=1)
+	@GeneratedValue(generator="user_id_gen")
 	private Integer id;
 
 	@Index(name="entityIndexCol")
