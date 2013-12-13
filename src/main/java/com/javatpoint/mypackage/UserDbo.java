@@ -31,8 +31,8 @@ import org.hibernate.annotations.Index;
 public class UserDbo {
 
 	@Id
-	@SequenceGenerator(name="user_id_gen",sequenceName="user_sequence" ,initialValue=1)
-	@GeneratedValue(generator="user_id_gen")
+	@SequenceGenerator(name="user_id_gen",sequenceName="user_sequence" ,initialValue=1,allocationSize=10)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="user_id_gen")
 	private Integer id;
 
 	@Index(name="entityIndexCol")

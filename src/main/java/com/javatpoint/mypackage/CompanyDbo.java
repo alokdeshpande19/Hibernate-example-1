@@ -13,8 +13,8 @@ import javax.persistence.SequenceGenerator;
 @Entity
 public class CompanyDbo {
 	@Id
-	@SequenceGenerator(name="company_id_gen" ,sequenceName="company_sequence",initialValue=1)
-	@GeneratedValue(generator="company_id_gen")
+	@SequenceGenerator(name="company_id_gen" ,sequenceName="company_sequence",initialValue=1,allocationSize=10)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="company_id_gen")
 	private Integer id;
 
 	@OneToMany(mappedBy="company")
